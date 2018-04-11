@@ -1,0 +1,61 @@
+{
+  "name": "koa-react",
+  "version": "1.0.0",
+  "description": "hhh",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "cross-env NODE_ENV=development node app.js",
+    "prod": "npm run build",
+    "build": "node build/build.js",
+    "dev:dll": "cross-env NODE_ENV=development webpack --config build/webpack.dll.conf.js",
+    "prod:dll": "cross-env NODE_ENV=production webpack --config build/webpack.dll.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttshangxiang/koa-react.git"
+  },
+  "author": "hhh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ttshangxiang/koa-react/issues"
+  },
+  "homepage": "https://github.com/ttshangxiang/koa-react#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "busboy": "^0.2.14",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.1.4",
+    "css-loader": "^0.28.11",
+    "ejs": "^2.5.8",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-logger": "^3.2.0",
+    "koa-proxy": "^0.9.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
+    "koa-views": "^6.1.4",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "progress-bar-webpack-plugin": "^1.11.0",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
+    "react-hot-loader": "^4.0.1",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-middleware": "^3.1.2",
+    "webpack-hot-middleware": "^2.22.0",
+    "webpack-merge": "^4.1.2"
+  }
+}
