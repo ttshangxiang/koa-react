@@ -10,6 +10,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const bundleConfig = require('./dll/bundle-config.json')
+// WebpackManifestPlugin
 
 const dllManifestDir = path.resolve(__dirname, './manifest/prod')
 
@@ -23,7 +25,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     path: path.resolve(__dirname, '../dist'),
     filename: 'js/[name].[chunkhash:8].js',
     publicPath: '/',
-    chunkFilename: 'js/chunks/[chunkhash:8].js'
+    chunkFilename: 'js/chunks/[name].[chunkhash:8].js'
   },
   module: {
     rules: [
@@ -52,23 +54,21 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]
   },
   optimization: {
-    minimize: true
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+      name: 'common',
+    },
+    runtimeChunk: {
+      name: 'runtime',
+    }
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
     new webpack.HashedModuleIdsPlugin(),
     new CleanWebpackPlugin([path.resolve(__dirname, '../dist')], {
       allowExternal: true,
       exclude: ['.git']
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   names: ['manifest'],
-    //   minChunks: Infinity
-    // }),
     new webpack.DllReferencePlugin({
       context: dllManifestDir,
       manifest: require(path.join(dllManifestDir, 'vendor-manifest.json'))
@@ -84,6 +84,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.html'),
       minify: {},
+      vendorJsName: bundleConfig.vendor.js, // 加载dll文件
       inject: 'body'
     }),
     new CopyWebpackPlugin([

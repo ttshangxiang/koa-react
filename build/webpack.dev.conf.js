@@ -5,6 +5,7 @@ const config = require('../config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const baseWebpackConfig = require('./webpack.base.conf')
 const dllManifestDir = path.resolve(__dirname, './manifest/dev')
@@ -46,11 +47,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(config.dev.env)
-      }
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DllReferencePlugin({
@@ -60,11 +56,18 @@ const webpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.html'),
+      vendorJsName: 'vendor.dll.js', // 加载dll文件
       inject: true
     }),
     new ProgressBarPlugin(),
     new FriendlyErrorsPlugin(),
-    new webpack.NamedModulesPlugin()
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, './dll/dev'),
+        to: path.resolve(__dirname, '../dist/js/dll'),
+        ignore: ['.*']
+      }
+    ])
   ]
 })
 

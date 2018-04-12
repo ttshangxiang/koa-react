@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const AssetsPlugin = require('assets-webpack-plugin')
 const config = require('../config')
 
 const _PROP = process.env.NODE_ENV === 'production'
@@ -19,7 +20,7 @@ const webpackConfig = {
   },
   output: {
     path: dllDir,
-    filename: _PROP ? '[name].[chunkhash:8].js' : '[name].js',
+    filename: _PROP ? '[name].dll.[chunkhash:8].js' : '[name].dll.js',
     library: '[name]'
   },
   resolve: {
@@ -35,6 +36,10 @@ const webpackConfig = {
     new CleanWebpackPlugin([dllDir, manifestDir], {
       allowExternal: true
     }),
+    new AssetsPlugin({
+      filename: 'bundle-config.json',
+      path: path.resolve(__dirname, 'dll')
+    }),
     new webpack.DllPlugin({
       path: `${manifestDir}/[name]-manifest.json`,
       name: '[name]',
@@ -44,7 +49,6 @@ const webpackConfig = {
 }
 
 if (_PROP) {
-  webpackConfig.output.publicPath = '/dist/js/dll/'
   webpackConfig.plugins.splice(1, 0, new webpack.HashedModuleIdsPlugin())
   webpackConfig.optimization = {
     minimize: true
