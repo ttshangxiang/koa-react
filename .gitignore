@@ -1,2 +1,4 @@
 node_modules
 /upload/*
+/build/dll/*
+/build/manifest/*
