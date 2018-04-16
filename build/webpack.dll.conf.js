@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const AssetsPlugin = require('assets-webpack-plugin')
-const config = require('../config')
 
 const _PROP = process.env.NODE_ENV === 'production'
 const dllDir = path.join(__dirname, `./dll/${_PROP ? 'prod' : 'dev'}`)
@@ -15,7 +14,16 @@ const webpackConfig = {
   entry: {
     vendor: [
       'react',
-      'react-dom'
+      'react-dom',
+      'es6-promise',
+      'isomorphic-fetch',
+      'react-hot-loader',
+      'react-router-dom',
+      'react-redux',
+      'redux',
+      'redux-thunk',
+      'redux-api-middleware',
+      'redux-diff-logger',
     ],
   },
   output: {

@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const config = require('../config')
 
 const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -34,7 +33,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'env']
+          presets: ['react', 'env', 'stage-3']
         }
       },
       {

@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const config = require('../config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
@@ -31,7 +30,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
-          presets: ['react', 'env'],
+          presets: ['react', 'env', 'stage-3'],
           cacheDirectory: true,
           plugins: ['react-hot-loader/babel']
         }
